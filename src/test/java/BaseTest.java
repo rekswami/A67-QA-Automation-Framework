@@ -25,20 +25,22 @@ public class BaseTest {
     ChromeOptions options = new ChromeOptions();
     options.addArguments("--remote-allow-origins=*");
 
-    driver = new ChromeDriver(options);
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    driver.manage().window().maximize();
+    this.driver = new ChromeDriver(options);
+    this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    this.driver.manage().window().maximize();
     navigateToPage();
   }
-  public void navigateToPage()
-  {
-   driver.get(Url);
-   }
 @AfterMethod
 public void closeBrowser()
 {
     driver.quit();
 }
+
+public void navigateToPage()
+    {
+        driver.get(Url);
+    }
+
 public void provideEmail(String email)
 {
     WebElement emailField = driver.findElement(By.cssSelector("input[type='email']"));
@@ -51,11 +53,11 @@ public void providePassword(String password)
     passwordField.clear();
     passwordField.sendKeys(password);
 }
-public void clickLoginBtn()
+public void clickLoginBtn() throws InterruptedException
 {
     WebElement submit = driver.findElement(By.cssSelector("button[type='submit']"));
     submit.click();
+    Thread.sleep(2000);
  }
-
 
 }
